@@ -1,0 +1,6 @@
+declare -A repos
+declare -A links
+
+modules=parent
+
+#repos[repo]="git@gitlab.com:some/project.git"

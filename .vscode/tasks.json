@@ -1,0 +1,37 @@
+{
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "make-main",
+      "command": "make vx-cmake-template",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$go"
+      ]
+    },
+    {
+      "type": "shell",
+      "label": "make-test",
+      "command": "make vx-cmake-template-test",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$go"
+      ]
+    }
+  ],
+  "version": "2.0.0"
+}
