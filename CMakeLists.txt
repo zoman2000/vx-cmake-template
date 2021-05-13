@@ -1,3 +1,8 @@
+#############################################################
+# Sample cmake project
+# to enable CPPUNIT set(USE_CPPUNIT 1), default is disabled
+# to enable GTEST set(USE_GTEST 1), default is enabled
+#############################################################
 project(vx-cmake-template)
 
 cmake_minimum_required(VERSION 3.10)
@@ -6,12 +11,21 @@ if (CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
 endif()
 
 add_compile_options(-DMY_VARIABLE)
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-O2 -march=native")
 set(VXPRO_DIR "/opt/vxpro/vx-cmake-template")
 set(USING_LIB 1)
+set(USING_CPPUNIT 1)
+set(USING_GTEST 1)
 
 find_package(Boost 1.61.0 COMPONENTS program_options system thread filesystem serialization REQUIRED)
+find_package(PkgConfig)
+if(USING_GTEST)
+    pkg_search_module(GTEST REQUIRED gtest_main)
+endif()
+if(USING_CPPUNIT)
+    pkg_search_module(CPPUNIT REQUIRED cppunit)
+endif()
 
 include_directories(src)
 
@@ -29,11 +43,15 @@ file(GLOB SOURCES_TEST
     test/*.cpp
 )
 
+file(GLOB SOURCES_GTEST
+    gtest/*.h
+    gtest/*.cpp
+)
+
 if(USING_LIB)
     message(STATUS "*** ADD project library ***")
     add_subdirectory(lib)
 endif()
-
 
 if(USING_LIB)
     add_executable(vx-cmake-template main.cpp)
@@ -42,8 +60,6 @@ else()
     add_executable(vx-cmake-template main.cpp ${SOURCES})
 endif()
 target_link_libraries(vx-cmake-template PRIVATE ${Boost_LIBRARIES})
-target_link_libraries(vx-cmake-template PRIVATE db_cxx)
-target_link_libraries(vx-cmake-template PRIVATE crypt owcrypt ssl crypto uuid)
 target_link_libraries(vx-cmake-template PRIVATE pthread)
 target_include_directories(vx-cmake-template PRIVATE ${Boost_INCLUDE_DIR})
 # Strip binary for release builds
@@ -52,10 +68,11 @@ if (CMAKE_BUILD_TYPE STREQUAL MinSizeRel)
             COMMAND ${CMAKE_STRIP} ${PROJECT_NAME})
 endif ()
 
-########################
-##### test files #######
-########################
+##################################
+##### test files (CPPUNIT) #######
+##################################
 
+if (USING_CPPUNIT)
 if (NOT CMAKE_BUILD_TYPE STREQUAL MinSizeRel)
     if(USING_LIB)
         add_executable(vx-cmake-template-test main_test.cpp ${SOURCES_TEST})
@@ -63,14 +80,32 @@ if (NOT CMAKE_BUILD_TYPE STREQUAL MinSizeRel)
     else()
         add_executable(vx-cmake-template-test main_test.cpp ${SOURCES_TEST} ${SOURCES})
     endif()
-    target_link_libraries(vx-cmake-template-test PRIVATE cppunit)
+    target_link_libraries(vx-cmake-template-test PRIVATE ${CPPUNIT_LDFLAGS})
     target_link_libraries(vx-cmake-template-test PRIVATE ${Boost_LIBRARIES})
-    target_link_libraries(vx-cmake-template-test PRIVATE db_cxx)
-    target_link_libraries(vx-cmake-template-test PRIVATE crypt owcrypt ssl crypto uuid)
     target_link_libraries(vx-cmake-template-test PRIVATE pthread)
     target_include_directories(vx-cmake-template-test PRIVATE ${Boost_INCLUDE_DIR})
 endif()
+endif()
 
+##################################
+##### test files (GTEST) #########
+##################################
+
+if (USING_GTEST)
+if (NOT CMAKE_BUILD_TYPE STREQUAL MinSizeRel)
+    if(USING_LIB)
+        add_executable(vx-cmake-template-gtest main_gtest.cpp ${SOURCES_GTEST})
+        target_link_libraries(vx-cmake-template-gtest PRIVATE vx-cmake-template_a)
+    else()
+        add_executable(vx-cmake-template-gtest main_gtest.cpp ${SOURCES_GTEST} ${SOURCES})
+    endif()
+    target_link_libraries(vx-cmake-template-gtest PRIVATE ${Boost_LIBRARIES})
+    target_link_libraries(vx-cmake-template-gtest PRIVATE pthread)
+    target_link_libraries(vx-cmake-template-gtest PRIVATE ${GTEST_LDFLAGS})
+    target_compile_options(vx-cmake-template-gtest PUBLIC ${GTEST_CFLAGS})
+    target_include_directories(vx-cmake-template-gtest PRIVATE ${Boost_INCLUDE_DIR})
+endif()
+endif()
 
 ########################
 ##### static files #####

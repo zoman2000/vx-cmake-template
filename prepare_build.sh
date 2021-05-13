@@ -3,6 +3,7 @@
 type=Debug
 runbuild=0
 runtest=0
+rungtest=0
 BUILD_JOBS=2
 
 function calculate_jobs() {
@@ -52,6 +53,10 @@ while [ ! -z "$1" ] ; do
 	    runbuild=1
 	    runtest=1
 	    ;;
+	-g|gtest)
+	    runbuild=1
+	    runtest=1
+	    ;;
     esac
     shift
 done
@@ -67,9 +72,15 @@ pushd build >/dev/null
     fi
 
     if [ $runtest -ne 0 ] ; then
-	BINARY_NAME=$(dirname `pwd`)
-	BINARY_NAME=$(basename $BINARY_NAME)
-	./${BINARY_NAME}-test
+    	BINARY_NAME=$(dirname `pwd`)
+    	BINARY_NAME=$(basename $BINARY_NAME)
+    	./${BINARY_NAME}-test
+    fi
+
+    if [ $rungtest -ne 0 ] ; then
+    	BINARY_NAME=$(dirname `pwd`)
+    	BINARY_NAME=$(basename $BINARY_NAME)
+    	./${BINARY_NAME}-gtest
     fi
 
 popd >/dev/null

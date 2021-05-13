@@ -4,6 +4,7 @@
 Simple boilerplate cmake project. Features: boost program options, cppunit, cmake. Clone, rename and you're ready to go in 1 minute.
 
 Features:
+- gtest
 - cppunit
 - boost program options
 - boost process
@@ -23,6 +24,7 @@ c++ compiler
 cmake
 boost
 cppunit
+gtest
 a lot of free time
 
 # Installation
@@ -44,8 +46,11 @@ To build a project you can use prepare_build.sh script.
 - Build
 ./prepare_build.sh run
 
-- Test
+- Test using cppunit
 ./prepare_build.sh test
+
+- Test using gtest
+./prepare_build.sh gtest
 
 # Using static library (default)
 

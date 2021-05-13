@@ -20,7 +20,7 @@
             "preLaunchTask": "make-main"
         },
         {
-            "name": "test",
+            "name": "test-cppunit",
             "type": "cppdbg",
             "request": "launch",
             "setupCommands": [
@@ -29,6 +29,23 @@
                 }
             ],
             "program": "${workspaceFolder}/build/vx-cmake-template-test",
+            "args": [
+                "MainTest"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            "preLaunchTask": "make-test"
+        },
+        {
+            "name": "test-gtest",
+            "type": "cppdbg",
+            "request": "launch",
+            "setupCommands": [
+                {
+                    "text": "-enable-pretty-printing"
+                }
+            ],
+            "program": "${workspaceFolder}/build/vx-cmake-template-gtest",
             "args": [
                 "MainTest"
             ],
