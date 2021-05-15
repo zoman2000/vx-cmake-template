@@ -15,7 +15,7 @@ add_compile_options(-DMY_VARIABLE)
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-O2 -march=native")
 set(VXPRO_DIR "/opt/vxpro/vx-cmake-template")
 set(USING_LIB 1)
-set(USING_CPPUNIT 1)
+set(USING_CPPUNIT 0)
 set(USING_GTEST 1)
 
 find_package(Boost 1.61.0 COMPONENTS program_options system thread filesystem serialization REQUIRED)

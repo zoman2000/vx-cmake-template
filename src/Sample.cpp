@@ -27,13 +27,15 @@ using namespace std;
 using namespace boost::property_tree;
 using namespace boost::archive;
 
+/*  
+  Sample class to run simple test cases using gtest
+  Tests will be "evaluating" that we can add, subtract and initialize class with zero
+  Operator () is being used to run test cases using predicates
+*/
+
 Sample::Sample() : val(0) {}
 
 Sample::~Sample() {}
-
-// void Sample::Hello() {
-//   cout << "Hello" << endl;
-// }
 
 void Sample::add(int v) { val += v; }
 

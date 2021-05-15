@@ -26,6 +26,7 @@ struct SampleFix : testing::Test {
   } 
 };
 
+// testing additon, considering that a constructor is initializing "val" to 0
 TEST_F(SampleFix, Add) {
   ooo->add(2);
   EXPECT_EQ(2, ooo->val) << "should be 2";
@@ -33,27 +34,32 @@ TEST_F(SampleFix, Add) {
 
 // ---- parameters with the state
 
+// state class is necessary to run multiple parameterized test cases (see below)
 struct SampleFixState {
   int start;
   int val;
   int endval;
+  // this method allows to show an extended human-readable information about the state data
   friend std::ostream& operator << (std::ostream&os, const SampleFixState& o) {
     return os << "start: " << o.start << " val: " << o.val << " endval: " << o.endval;
   }
 };
 
+// fixture class to use a state
 struct SampleFixOP : SampleFix, testing::WithParamInterface<SampleFixState> {
   SampleFixOP() {
     ooo->val = GetParam().start;
   }
 };
 
+// define test case that uses a fixture.
 TEST_P(SampleFixOP,Result) {
   auto as = GetParam();
   ooo->sub(as.val);
   EXPECT_EQ(as.endval, ooo->val);
 }
 
+// run multiple tests using parameters
 INSTANTIATE_TEST_CASE_P(SampleSub, SampleFixOP, testing::Values(
   SampleFixState{ 0, 0, 0},
   SampleFixState{ 1, 1, 0},
@@ -89,10 +95,12 @@ TEST_F(SampleFix, Three) {
 
 //****** predicates, i.e. pred(param)
 
+// will utilize operator () declared in class Sample and pass 0 as a parameter
 TEST_F(SampleFix, Predicate0) {
   ASSERT_PRED1(*ooo, 0);
 }
 
+// will utilize operator () declared in class Sample and pass 2 as a parameter
 TEST_F(SampleFix, Predicate2) {
   ooo->add(2);
   ASSERT_PRED1(*ooo, 2);
