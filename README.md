@@ -1,11 +1,12 @@
 
 # Project
 
-Simple boilerplate cmake project. Features: boost program options, cppunit, cmake. Clone, rename and you're ready to go in 1 minute.
+Simple boilerplate cmake project. Features: boost program options, doxygen, gtest, cppunit(optional), cmake. Clone, rename and you're ready to go in 1 minute.
 
 Features:
 - gtest
 - cppunit
+- doxygen
 - boost program options
 - boost process
 - using static library (if necessary)
@@ -51,6 +52,12 @@ To build a project you can use prepare_build.sh script.
 
 - Test using gtest
 ./prepare_build.sh gtest
+
+# Doxygen
+If installed to build a documentation navigate to build folder and run
+```
+make doc
+```
 
 # Using static library (default)
 

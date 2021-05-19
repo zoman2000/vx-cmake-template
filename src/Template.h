@@ -23,10 +23,15 @@
 using namespace boost::property_tree;
 using namespace std;
 
+/**
+ * @brief Sample dummy class
+ * 
+ */
 class Template {
  public:
   Template();
   ~Template();
+  /// Sample function
   void Hello();
 };
 

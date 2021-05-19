@@ -27,6 +27,14 @@ if(USING_CPPUNIT)
     pkg_search_module(CPPUNIT REQUIRED cppunit)
 endif()
 
+find_package(Doxygen OPTIONAL_COMPONENTS dot)
+if (DOXYGEN_FOUND)
+  set(DOXYGEN_USE_MDFILE_AS_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md")
+  doxygen_add_docs(doc
+    ${CMAKE_SOURCE_DIR}
+  )
+endif(DOXYGEN_FOUND)
+
 include_directories(src)
 
 #Those files will be put to lib if necessary

@@ -27,6 +27,10 @@
 
 using namespace std;
 
+/**
+ * @brief CPPUNIT test suite
+ * 
+ */
 class MainTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(MainTest);
 
@@ -39,9 +43,13 @@ class MainTest : public CppUnit::TestFixture {
   MainTest();
   ~MainTest();
 
+  /// setup tests
   void setUp() override;
+
+  /// cleanup after runnint a test
   void tearDown() override;
 
+  /// sample test case
   void testOne();
 };
 

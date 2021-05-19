@@ -13,14 +13,21 @@ using ::testing::Le;
 using ::testing::MatchesRegex;
 using ::testing::StartsWith;
 
+/**
+ * @brief sample fixture class
+ * 
+ */
 struct SampleFix : testing::Test {
-  shared_ptr<Sample> ooo;
+  
+  shared_ptr<Sample> ooo; //!< class instance 
   SampleFix() {
     ooo.reset(new Sample);
   }
+  /// Initialize test fixture
   void SetUp() override {
     // cout << "setup" << endl;
   }
+  /// test cleanup
   void TearDown() override {
     // cout << "teardown final val =" << ooo->val << endl;
   } 
@@ -34,18 +41,25 @@ TEST_F(SampleFix, Add) {
 
 // ---- parameters with the state
 
-// state class is necessary to run multiple parameterized test cases (see below)
+// 
+/**
+ * @brief state class is necessary to run multiple parameterized test cases (see below)
+ * 
+ */
 struct SampleFixState {
-  int start;
-  int val;
-  int endval;
-  // this method allows to show an extended human-readable information about the state data
+  int start; //!< assign to Sample().val. Initial value
+  int val;   //!< value to subtract from val
+  int endval; //!< final expected value
+  /// this method allows to show an extended human-readable information about the state data
   friend std::ostream& operator << (std::ostream&os, const SampleFixState& o) {
     return os << "start: " << o.start << " val: " << o.val << " endval: " << o.endval;
   }
 };
 
-// fixture class to use a state
+/**
+ * @brief fixture class to use a state
+ * 
+ */
 struct SampleFixOP : SampleFix, testing::WithParamInterface<SampleFixState> {
   SampleFixOP() {
     ooo->val = GetParam().start;
