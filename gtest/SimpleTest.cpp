@@ -47,9 +47,9 @@ TEST_F(SampleFix, Add) {
  * 
  */
 struct SampleFixState {
-  int start; //!< assign to Sample().val. Initial value
-  int val;   //!< value to subtract from val
-  int endval; //!< final expected value
+  unsigned int start; //!< assign to Sample().val. Initial value
+  unsigned int val;   //!< value to subtract from val
+  unsigned int endval; //!< final expected value
   /// this method allows to show an extended human-readable information about the state data
   friend std::ostream& operator << (std::ostream&os, const SampleFixState& o) {
     return os << "start: " << o.start << " val: " << o.val << " endval: " << o.endval;
@@ -66,14 +66,14 @@ struct SampleFixOP : SampleFix, testing::WithParamInterface<SampleFixState> {
   }
 };
 
-// define test case that uses a fixture.
+/// define test case that uses a fixture.
 TEST_P(SampleFixOP,Result) {
   auto as = GetParam();
   ooo->sub(as.val);
   EXPECT_EQ(as.endval, ooo->val);
 }
 
-// run multiple tests using parameters
+/// run multiple tests using parameters
 INSTANTIATE_TEST_CASE_P(SampleSub, SampleFixOP, testing::Values(
   SampleFixState{ 0, 0, 0},
   SampleFixState{ 1, 1, 0},
@@ -109,12 +109,12 @@ TEST_F(SampleFix, Three) {
 
 //****** predicates, i.e. pred(param)
 
-// will utilize operator () declared in class Sample and pass 0 as a parameter
+/// will utilize operator () declared in class Sample and pass 0 as a parameter
 TEST_F(SampleFix, Predicate0) {
   ASSERT_PRED1(*ooo, 0);
 }
 
-// will utilize operator () declared in class Sample and pass 2 as a parameter
+/// will utilize operator () declared in class Sample and pass 2 as a parameter
 TEST_F(SampleFix, Predicate2) {
   ooo->add(2);
   ASSERT_PRED1(*ooo, 2);
@@ -122,11 +122,13 @@ TEST_F(SampleFix, Predicate2) {
 
 //*** string match (just a few examples)
 
+/// Match regex
 TEST_F(SampleFix, OOOMatch) {
   string val = "Hello World!";
   ASSERT_THAT(val, ::testing::MatchesRegex(".*ello.*"));
 }
 
+/// Match start of the string
 TEST_F(SampleFix, OOOMatch2) {
   string val = "Hello World!";
   ASSERT_THAT(val, ::testing::StartsWith("Hello"));

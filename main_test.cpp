@@ -65,8 +65,8 @@ int main(int argc, char **argv) {
   }
 
 #ifdef START_MAIN
-  // starting main program with 2 parameters as an example: 9998 and 3.
-  bp::child server("./vx-cmake-template", "9998", "localhost");
+  // starting main program with 2 parameters as an example: 9998 and localhost.
+  bp::child server("./vx-cmake-template", "localhost", "9998");
   // wait main process to start
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
 #endif

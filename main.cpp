@@ -33,13 +33,14 @@ int main(int argc, char **argv) {
   // clang-format off
   settings.add_options()
     ("help", "Help")
-    ("port,p", value<int>()->default_value(8888), "Port")
+    ("port,p", value<int>()->default_value(9998), "Port")
     ("host,h", value<string>()->default_value("localhost"), "Host")
     ;
   // clang-format on
 
+  // Define positional arguments
   // allows to start
-  // main localhost 1234 
+  // main localhost 1234
   // vs
   // main -h localhost -p 1234 
   positional_options_description pdesc;

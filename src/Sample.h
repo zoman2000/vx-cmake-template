@@ -24,38 +24,34 @@ using namespace boost::property_tree;
 using namespace std;
 
 /**
- * @brief Class to test using GTEST
+ * @brief Class to test using GTEST.
  * 
+ * This class mimics a very basic "store" that allows to add and subtract a value.
  */
 class Sample {
 public:
   
-  int val; //!< value that could be >= 0
+  unsigned int val; //!< value that could be >= 0
 
   Sample();
   ~Sample();
+
   /**
-   * @brief Add a number. NOTE: No checks for the negative value.
+   * @brief Add a number.
    * 
-   * @param v 
+   * @param v value to add
    */
-  void add(int v);
+  void add(unsigned int v);
+
   /**
-   * @brief Subtract a number. NOTE: no checks for negative value.
+   * @brief Subtract a number.
    * 
-   * @param v 
+   * @param v valud to sutract
    */
-  void sub(int v);
+  void sub(unsigned int v);
+
   /// sample functor to use as a predicate in GTEST
-  bool operator()(int v1);
+  bool operator()(unsigned int v1);
 };
 
 #endif
-
-  // /**
-  //  * @brief sample functor to use as a predicate in GTEST
-  //  * 
-  //  * @param v1 
-  //  * @return true v1 == val
-  //  * @return false v1 != val
-  //  */

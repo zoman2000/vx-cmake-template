@@ -5,22 +5,27 @@
 
 #include <gtest/gtest.h>
 
+// if START_MAIN is defined, main program will be started before running tests
+//#define START_MAIN
+
 namespace bp = boost::process;
 using namespace std;
 
-// Note: we don't need to include RegisteredTest
-
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
+
+#ifdef START_MAIN
+  // starting main program with 2 parameters as an example: localhost and 9998
+  bp::child server("./vx-cmake-template", "localhost", "9998");
+  // wait main process to start
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+#endif
+
   int result = RUN_ALL_TESTS();
 
-  // boost::filesystem::path full_path(boost::filesystem::current_path());
-  // std::cout << "Current path is : " << full_path << std::endl;
-
-  // // run main program with some options
-  // bp::child server("./test_gtest", "9998", "3");
-  // std::this_thread::sleep_for(std::chrono::milliseconds(500));
-  // server.terminate();
+#ifdef START_MAIN
+  server.terminate();
+#endif
 
   return result;
 }

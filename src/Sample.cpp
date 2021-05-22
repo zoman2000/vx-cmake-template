@@ -37,12 +37,11 @@ Sample::Sample() : val(0) {}
 
 Sample::~Sample() {}
 
-void Sample::add(int v) { val += v; }
+void Sample::add(unsigned int v) { val += v; }
 
-void Sample::sub(int v) {
-  if (v <= 0) return;
+void Sample::sub(unsigned int v) {
   if (v > val) v = val;
   val -= v;
 }
 
-bool Sample::operator()(int v1) { return val == v1; }
+bool Sample::operator()(unsigned int v1) { return val == v1; }
