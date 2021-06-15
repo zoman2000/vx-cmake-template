@@ -12,7 +12,7 @@ endif()
 
 add_compile_options(-DMY_VARIABLE)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(CMAKE_CXX_FLAGS_MINSIZEREL "-O2 -march=native")
+set(CMAKE_CXX_FLAGS_MINSIZEREL "-O2")
 set(VXPRO_DIR "/opt/vxpro/vx-cmake-template")
 set(USING_LIB 1)
 set(USING_CPPUNIT 0)
