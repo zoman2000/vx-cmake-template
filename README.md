@@ -1,5 +1,6 @@
-
 # Project
+
+(Original URL: https://gitlab.com/alexsmit/vx-cmake-template)
 
 Simple boilerplate cmake project. Features: boost program options, doxygen, gtest, cppunit(optional), cmake. Clone, rename and you're ready to go in 1 minute.
 
