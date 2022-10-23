@@ -1,0 +1,8 @@
+Sample project using:
+cppunit
+gtest
+cmake
+doxygen
+lcov
+static and shared libraries
+creating rpm/deb package

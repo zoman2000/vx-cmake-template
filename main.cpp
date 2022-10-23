@@ -39,9 +39,9 @@ int main(int argc, char **argv) {
   // clang-format on
 
   // Define positional arguments
-  // allows to start
+  // allows to start as:
   // main localhost 1234
-  // vs
+  // or using the options:
   // main -h localhost -p 1234 
   positional_options_description pdesc;
   pdesc.add("host", 1);

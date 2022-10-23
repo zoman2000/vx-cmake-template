@@ -19,7 +19,7 @@
     {
       "type": "shell",
       "label": "make-test",
-      "command": "make vx-cmake-template-test",
+      "command": "make",
       "args": [],
       "options": {
         "cwd": "${workspaceFolder}/build"

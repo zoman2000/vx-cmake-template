@@ -1,0 +1,27 @@
+#!/bin/bash
+
+[ -d build/coverage ] && rm -rf build/coverage
+
+covcmd="lcov --capture --directory . --output-file coverage.info"
+
+set -f
+if [ -e .coverage ] ; then
+    . ./.coverage
+    for inc in ${include[@]}
+    do
+	covcmd="$covcmd --include '$inc'"
+    done
+    for exc in ${exclude[@]}
+    do
+	covcmd="$covcmd --exclude '$exc'"
+    done
+fi
+
+echo '#/bin/bash' >  ./build/start_coverage.sh
+echo $covcmd      >> ./build/start_coverage.sh
+chmod +x ./build/start_coverage.sh
+
+./build/start_coverage.sh
+
+genhtml coverage.info -o build/coverage
+open build/coverage/index.html

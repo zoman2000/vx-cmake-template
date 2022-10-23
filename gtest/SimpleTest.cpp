@@ -97,7 +97,7 @@ TEST_P(SampleFixOP,Result) {
 }
 
 /// run multiple tests using parameters
-INSTANTIATE_TEST_CASE_P(SampleSub, SampleFixOP, testing::Values(
+INSTANTIATE_TEST_SUITE_P(SampleSub, SampleFixOP, testing::Values(
   SampleFixState{ 0, 0, 0},
   SampleFixState{ 1, 1, 0},
   SampleFixState{ 1, 2, 0},

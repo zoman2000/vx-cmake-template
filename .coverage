@@ -1,0 +1,2 @@
+include=('*/vx-cmake-template/src/*' '*/vx-cmake-template' '*/vx-cmake-template/test/*' )
+#exclude=( patterns )
